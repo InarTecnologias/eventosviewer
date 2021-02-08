@@ -13,7 +13,10 @@ config = configparser.ConfigParser()
 config.read(path + 'config.ini')
 
 
-scroll_ms= config['time']['scroll_ms']
+scroll_ms1= config['time']['scroll_ms1']
+scroll_ms2= config['time']['scroll_ms2']
+scroll_ms3= config['time']['scroll_ms3']
+scroll_ms4= config['time']['scroll_ms4']
 duration = config['time']['duration2']
 static_all = int(config['setting']['static_all'])
    
@@ -46,7 +49,7 @@ def stringCreator(mypath, onlyfiles):
 	return s
 		
 	
-def eventHandler(s):
+def eventHandler(s, scroll_ms):
 	onlyfiles = [f for f in listdir(path + s) if isfile(join(path + s, f))]
 	static = 0
 	if len(onlyfiles)==1 and static_all==0:
@@ -74,13 +77,13 @@ def recibido(data):
 			pass
 		time.sleep(0.2)
 		if "light" in event:
-			eventHandler("Luz")
+			eventHandler("Luz", scroll_ms1)
 		elif "audio" in event:
-			eventHandler("Audio")
+			eventHandler("Audio", scroll_ms2)
 		elif "substrate" in event:
-			eventHandler("Sustrato")
+			eventHandler("Sustrato", scroll_ms3)
 		elif "water" in event:
-			eventHandler("Water")
+			eventHandler("Water", scroll_ms4)
 
 @sio.event
 def disconnect():
